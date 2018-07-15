@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".com.app.com.app.supplier.SupplierOptionsActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/supplierOptionsButton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/es_supplierOptionsProductsButton"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/supplierOptionsOrders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/es_supplierOptionsOrdersButton"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/supplierOptionsNew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/es_supplierOptionsNewButton"
+        android:layout_weight="1"/>
+
+</LinearLayout>

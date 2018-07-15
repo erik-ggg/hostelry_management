@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FunctionSelectorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/supplierButton"
+            android:text="@string/es_suppliers"
+            android:layout_weight="1.0"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+
+        <Button
+            android:id="@+id/ordersButton"
+            android:text="@string/es_orders"
+            android:layout_weight="1.0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/productsButton"
+            android:text="@string/es_products"
+            android:layout_weight="1.0"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
