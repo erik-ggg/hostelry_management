@@ -23,10 +23,15 @@ public class SupplierNewActivity extends AppCompatActivity {
         addSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppDatabase.getAppDatabase(getApplicationContext()).supplierDao()
-                        .insert(new Supplier(supplierName.getText().toString(),
-                            Integer.valueOf(supplierPhonenumber.getText().toString())));
-                finish();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppDatabase.getAppDatabase(getApplicationContext()).supplierDao()
+                                .insert(new Supplier(supplierName.getText().toString(),
+                                        Integer.valueOf(supplierPhonenumber.getText().toString())));
+                        finish();
+                    }
+                }).start();
             }
         });
     }
