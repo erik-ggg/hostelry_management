@@ -29,5 +29,15 @@ public class SupplierOptionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button editButton = findViewById(R.id.supplierOptionsEdit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SupplierOptionsActivity.this, SupplierProductsActivity.class);
+                intent.putExtra("supplier", stringSupplier);
+                startActivity(intent);
+            }
+        });
     }
 }

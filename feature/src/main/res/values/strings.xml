@@ -38,4 +38,8 @@
     <string name="es_preorderNewSupplier">Proveedor:</string>
     <string name="es_preorderNewProduct">Producto:</string>
     <string name="es_preorderNewAddProductButton">Añadir</string>
+    <string name="es_supplierProductOptionsEdit">Editar</string>
+    <string name="es_supplierProductOptionsUpdate">Actualizar</string>
+    <string name="es_supplierOptionsEditButton">Editar</string>
+    <string name="es_UpdateAccept">Actualizar</string>
 </resources>

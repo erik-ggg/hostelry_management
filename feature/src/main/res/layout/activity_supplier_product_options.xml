@@ -8,9 +8,24 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/supplierProductOptionsUpdate"
+        android:text="@string/es_supplierProductOptionsUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/supplierProductOptionsEdit"
+        android:text="@string/es_supplierProductOptionsEdit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <Button
         android:id="@+id/supplierProductOptionsGraphic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/es_supplierProductOptionsGraphic"/>
+        android:text="@string/es_supplierProductOptionsGraphic"
+        android:layout_weight="1"/>
 
 </LinearLayout>

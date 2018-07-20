@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.developer.hostelry_management.feature.R;
+import com.app.developer.hostelry_management.feature.com.app.com.app.supplier.SupplierOptionsActivity;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
 
 public class SupplierProductOptionsActivity extends AppCompatActivity {
@@ -22,6 +23,17 @@ public class SupplierProductOptionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SupplierProductOptionsActivity.this,
                         SupplierProductGraphicActivity.class);
+                intent.putExtra("product", getIntent().getStringExtra("product"));
+                startActivity(intent);
+            }
+        });
+
+        Button updateButton = findViewById(R.id.supplierProductOptionsUpdate);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SupplierProductOptionsActivity.this,
+                        SupplierProductUpdateActivity.class);
                 intent.putExtra("product", getIntent().getStringExtra("product"));
                 startActivity(intent);
             }
