@@ -1,4 +1,4 @@
-package com.app.developer.hostelry_management.feature.com.app.com.app.com.app.product;
+package com.app.developer.hostelry_management.feature.com.app.com.app.product;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

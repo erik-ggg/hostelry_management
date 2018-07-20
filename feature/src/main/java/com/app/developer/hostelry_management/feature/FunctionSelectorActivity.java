@@ -3,13 +3,12 @@ package com.app.developer.hostelry_management.feature;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
-import com.app.developer.hostelry_management.feature.com.app.com.app.com.app.product.ProductOptionsActivity;
-import com.app.developer.hostelry_management.feature.com.app.com.app.supplier.SupplierListActivity;
+import com.app.developer.hostelry_management.feature.com.app.com.app.order.OrdersGeneralOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.com.app.product.ProductOptionsActivity;
 import com.app.developer.hostelry_management.feature.com.app.com.app.supplier.SuppliersOptionsActivity;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductEvolutionDao;
@@ -41,6 +40,14 @@ public class FunctionSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(FunctionSelectorActivity.this, ProductOptionsActivity.class));
+            }
+        });
+
+        Button orderButton = findViewById(R.id.ordersButton);
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FunctionSelectorActivity.this, OrdersGeneralOptionsActivity.class));
             }
         });
 

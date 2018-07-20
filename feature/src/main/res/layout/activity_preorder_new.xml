@@ -4,87 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".com.app.com.app.product.ProductNewActivity"
+    tools:context=".com.app.com.app.order.preorder.PreorderNewActivity"
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
         <TextView
-            android:text="@string/es_productNewName"
+            android:text="@string/es_preorderNewSupplier"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/productNewEditTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <TextView
-            android:text="@string/es_productNewPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/productNewEditTextPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <TextView
-            android:text="@string/es_productNewSupplier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <Spinner
-            android:id="@+id/productNewSupplierSpinner"
+            android:id="@+id/preorderNewSupplierSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/es_preorderNewProduct"
+            android:layout_weight="1"/>
+        <Spinner
+            android:id="@+id/preorderNewProductSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"></Spinner>
+        <Button
+            android:id="@+id/preorderNewAddProductButton"
+            android:text="@string/es_preorderNewAddProductButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/productNewCancel"
-            android:text="@string/es_productNewCancel"
+            android:id="@+id/preorderNewCancelButton"
+            android:text="@string/es_NewCancel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/productNewAccept"
+            android:id="@+id/preorderNewAddButton"
             android:text="@string/es_NewAccept"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></LinearLayout>
 
 </LinearLayout>

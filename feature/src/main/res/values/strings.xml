@@ -31,4 +31,11 @@
     <string name="es_supplierNewPhonenumber">Teléfono:</string>
     <string name="es_suppliersOptionsNew">Nuevo proveedor</string>
     <string name="es_suppliersOptionsList">Proveedores</string>
+    <string name="es_ordersGeneralPreorderButton">Pre-pedidos</string>
+    <string name="es_ordersGeneralOrderButton">Pedidos</string>
+    <string name="es_preorderOptionsNewButton">Nuevo pedido</string>
+    <string name="es_preorderOptionsListButton">Lista</string>
+    <string name="es_preorderNewSupplier">Proveedor:</string>
+    <string name="es_preorderNewProduct">Producto:</string>
+    <string name="es_preorderNewAddProductButton">Añadir</string>
 </resources>

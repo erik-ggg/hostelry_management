@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".com.app.com.app.product.ProductOptionsActivity"
+    tools:context=".com.app.com.app.order.preorder.PreorderListActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/buttonProductAddProduct"
+    <ListView
+        android:id="@+id/preorderListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/es_productNewProduct"/>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>
