@@ -3,23 +3,21 @@ package com.app.developer.hostelry_management.feature.com.app.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
 import android.arch.persistence.room.TypeConverters;
 
-import com.app.developer.hostelry_management.feature.com.app.com.app.utils.Converters;
+import com.app.developer.hostelry_management.feature.com.app.utils.Converters;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity(foreignKeys = @ForeignKey(entity = Supplier.class, parentColumns = "id", childColumns = "supplierId"))
 @TypeConverters(Converters.class)
 public class Preorder {
     @PrimaryKey(autoGenerate = true)
-    public Long id;
-    public Long supplierId;
-    public double numberOfItems;
-    public double total;
-    public Date date;
+    private Long id;
+    private Long supplierId;
+    private double numberOfItems;
+    private double total;
+    private Date date;
 
     public Preorder(){}
 

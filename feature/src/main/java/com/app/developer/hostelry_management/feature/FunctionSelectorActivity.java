@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
-import com.app.developer.hostelry_management.feature.com.app.com.app.order.OrdersGeneralOptionsActivity;
-import com.app.developer.hostelry_management.feature.com.app.com.app.product.ProductOptionsActivity;
-import com.app.developer.hostelry_management.feature.com.app.com.app.supplier.SuppliersOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.order.OrdersGeneralOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.product.ProductOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.supplier.SuppliersOptionsActivity;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductEvolutionDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.SupplierDao;
@@ -51,7 +51,7 @@ public class FunctionSelectorActivity extends AppCompatActivity {
             }
         });
 
-        // ***** DEVELOPING ONLY *****
+//      ***** DEVELOPING ONLY *****
         loadTestData();
     }
 

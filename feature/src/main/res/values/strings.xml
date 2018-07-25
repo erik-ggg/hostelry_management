@@ -42,4 +42,9 @@
     <string name="es_supplierProductOptionsUpdate">Actualizar</string>
     <string name="es_supplierOptionsEditButton">Editar</string>
     <string name="es_UpdateAccept">Actualizar</string>
+    <string name="es_preordersTitle">Prepedidos</string>
+    <string name="action_settings">Settings</string>
+    <string name="es_action_createPreorder">Crear pre-pedido</string>
+    <string name="es_toolbar_firstOption">Primera opción</string>
+    <string name="es_toolbar_createPreorder">Hacer pre-pedido</string>
 </resources>

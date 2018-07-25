@@ -16,5 +16,6 @@ public interface ProductDao {
     List<Product> getProductsBySupplier(Long supplierId);
     @Insert
     Long insert(Product product);
-
+    @Query("SELECT * FROM product WHERE id = :id")
+    Product getProductById(Long id);
 }

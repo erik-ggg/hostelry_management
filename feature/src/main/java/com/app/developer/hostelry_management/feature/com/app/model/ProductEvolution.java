@@ -4,12 +4,10 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
 
-import com.app.developer.hostelry_management.feature.com.app.com.app.utils.Converters;
+import com.app.developer.hostelry_management.feature.com.app.utils.Converters;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = Product.class
