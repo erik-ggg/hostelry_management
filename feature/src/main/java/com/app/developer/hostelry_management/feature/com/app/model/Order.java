@@ -7,6 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.app.developer.hostelry_management.feature.com.app.utils.Converters;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = Supplier.class, parentColumns = "id", childColumns = "supplierId"))
@@ -30,7 +31,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Pedido del: " + date + ", nºproductos: " + numberOfItems + ", TOTAL: " + total;
+        return "Pedido del: " + new SimpleDateFormat("dd MMM yyyy").format(date) + ", nºproductos: " + numberOfItems + ", TOTAL: " + total;
     }
 
     public Long getId() {

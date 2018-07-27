@@ -5,4 +5,10 @@
         android:id="@+id/toolbar_first_option"
         android:title="@string/es_toolbar_firstOption"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/toolbar_second_option"
+        android:title=""
+        app:showAsAction="never"
+        android:visible="false"
+        android:enabled="false" />
 </menu>

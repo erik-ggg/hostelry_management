@@ -52,4 +52,6 @@
     <string name="es_toolbar_closePreorder">Cerrar pre-pedido</string>
     <string name="es_toast_database_error">Error al introducir los datos</string>
     <string name="es_emptyOrWhitespace">Algún campo está vacío o con espacios.</string>
+    <string name="es_toolbar_preorder_addProducts">Añadir productos</string>
+    <string name="es_confirmButton">Confirmar</string>
 </resources>

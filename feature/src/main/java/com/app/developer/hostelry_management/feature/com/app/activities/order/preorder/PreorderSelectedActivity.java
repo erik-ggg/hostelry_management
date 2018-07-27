@@ -45,7 +45,12 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         if (i == R.id.toolbar_first_option) {
             closePreorder();
             return true;
-        } else {
+        }
+        if (i == R.id.toolbar_second_option) {
+            addMoreProducts();
+            return true;
+        }
+        else {
             return super.onOptionsItemSelected(item);
         }
     }
@@ -55,6 +60,11 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.basic_toolbar, menu);
         MenuItemsTextUpdater.updateTitle(menu.findItem(R.id.toolbar_first_option), getResources().getString(R.string.es_toolbar_closePreorder));
+        // set enable and visible the menu second option
+        MenuItem secondMenuItem = menu.findItem(R.id.toolbar_second_option);
+        secondMenuItem.setEnabled(true);
+        secondMenuItem.setVisible(true);
+        MenuItemsTextUpdater.updateTitle(secondMenuItem, getResources().getString(R.string.es_toolbar_preorder_addProducts));
         return true;
     }
 
@@ -86,6 +96,12 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                 totalTextView.setText(TOTAL_STRING + preorder.getTotal());
             }
         }).start();
+    }
+
+    private void addMoreProducts() {
+        Intent intent = new Intent(PreorderSelectedActivity.this, PreorderAddProductsActivity.class);
+        intent.putExtra("preorder", getIntent().getStringExtra("preorder"));
+        startActivity(intent);
     }
 
     private void closePreorder() {
