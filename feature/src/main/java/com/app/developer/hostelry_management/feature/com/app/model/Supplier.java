@@ -52,6 +52,6 @@ public class Supplier {
 
     @Override
     public String toString() {
-        return "Nombre: " + name + ", tlf: " + phonenumber;
+        return name + ", Tlf: " + phonenumber;
     }
 }

@@ -29,9 +29,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     public Long getId() {

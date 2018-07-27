@@ -15,6 +15,7 @@ import com.app.developer.hostelry_management.feature.com.app.dao.ProductEvolutio
 import com.app.developer.hostelry_management.feature.com.app.model.Preorder;
 import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems;
 import com.app.developer.hostelry_management.feature.com.app.model.Product;
+import com.app.developer.hostelry_management.feature.com.app.model.ProductEvolution;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
 
 import java.util.ArrayList;
@@ -91,9 +92,13 @@ public class PreorderNewActivity extends AppCompatActivity {
                             public void run() {
                                 // calculamos informacion preorder
                                 List<PreorderItems> preorderItems = new ArrayList<>();
+                                List<ProductEvolution> productEvolutions = new ArrayList<>();
                                 double total = 0;
                                 for (Product product : productList) {
-                                    total += appDatabase.productEvolutionDao().getLastModification(product.getId()).getPrice();
+                                    // anadimos su estado actual a la lista
+                                    ProductEvolution productEvolution = appDatabase.productEvolutionDao().getLastModification(product.getId());
+                                    productEvolutions.add(productEvolution);
+                                    total += productEvolution.getPrice();
                                 }
                                 // insertar el preorder
                                 Long preorderId = appDatabase.preorderDao().addPreorder(new Preorder(
@@ -103,8 +108,8 @@ public class PreorderNewActivity extends AppCompatActivity {
                                         Calendar.getInstance().getTime()
                                 ));
                                 // insertar la lista de productos
-                                for (Product product : productList) {
-                                    preorderItems.add(new PreorderItems(preorderId, product.getId()));
+                                for (ProductEvolution productEvolution : productEvolutions) {
+                                    preorderItems.add(new PreorderItems(preorderId, productEvolution.getId()));
                                 }
                                 appDatabase.preorderItemsDao().addAll(preorderItems);
                                 closeAndRefresh();

@@ -26,12 +26,12 @@ public class SupplierListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.toolbar_first_option:
-                startActivity(new Intent(SupplierListActivity.this, SupplierNewActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int i = item.getItemId();
+        if (i == R.id.toolbar_first_option) {
+            startActivity(new Intent(SupplierListActivity.this, SupplierNewActivity.class));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 

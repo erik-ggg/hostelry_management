@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.developer.hostelry_management.feature.R;
+import com.app.developer.hostelry_management.feature.com.app.activities.product.ProductNewBySupplierActivity;
 import com.app.developer.hostelry_management.feature.com.app.activities.supplier.com.app.supplier.product.SupplierProductsActivity;
 
 public class SupplierOptionsActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class SupplierOptionsActivity extends AppCompatActivity {
 
         final String stringSupplier = getIntent().getStringExtra("supplier");
 
-        Button productsButton = findViewById(R.id.supplierOptionsButton);
+        Button productsButton = findViewById(R.id.supplierOptionsProducts);
         productsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,11 +29,21 @@ public class SupplierOptionsActivity extends AppCompatActivity {
             }
         });
 
-        Button editButton = findViewById(R.id.supplierOptionsEdit);
+        Button editButton = findViewById(R.id.supplierOptionsEditProduct);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SupplierOptionsActivity.this, SupplierProductsActivity.class);
+                intent.putExtra("supplier", stringSupplier);
+                startActivity(intent);
+            }
+        });
+
+        Button newProductButton = findViewById(R.id.supplierOptionsNewProduct);
+        newProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SupplierOptionsActivity.this, ProductNewBySupplierActivity.class);
                 intent.putExtra("supplier", stringSupplier);
                 startActivity(intent);
             }

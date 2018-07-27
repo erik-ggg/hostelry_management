@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/supplierOptionsButton"
+        android:id="@+id/supplierOptionsProducts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/es_supplierOptionsProductsButton"
@@ -22,14 +22,14 @@
         android:layout_weight="1"/>
 
     <Button
-        android:id="@+id/supplierOptionsEdit"
+        android:id="@+id/supplierOptionsEditProduct"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/es_supplierOptionsEditButton"
         android:layout_weight="1"/>
 
     <Button
-        android:id="@+id/supplierOptionsNew"
+        android:id="@+id/supplierOptionsNewProduct"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/es_supplierOptionsNewButton"

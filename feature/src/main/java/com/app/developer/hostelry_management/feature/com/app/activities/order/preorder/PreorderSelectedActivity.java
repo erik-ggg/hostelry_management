@@ -99,14 +99,14 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                         public void run() {
                             // crear order
                             database.orderDao().addOrder(new Order(preorder.getSupplierId(),
-                                    preorder.getNumberOfItems(), preorder.getNumberOfItems(), preorder.getDate()));
+                                    preorder.getNumberOfItems(), preorder.getTotal(), preorder.getDate()));
                             // crear productos de dicha order
                             database.orderItemsDao().addAll(getOrderItems(preorderItems));
                             // borrar productos preorder
                             database.preorderItemsDao().deletePreorderItems(preorderItems);
                             // borrar preorder
                             database.preorderDao().deletePreorder(preorder);
-                            finish();
+                            closeAndRefresh();
                         }
                     });
                 } catch (Exception e) {
@@ -114,6 +114,12 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void closeAndRefresh() {
+        Intent refresh = new Intent(this, PreorderListActivity.class);
+        startActivity(refresh);
+        finish();
     }
 
     /**
@@ -124,7 +130,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
     private List<OrderItems> getOrderItems(List<PreorderItems> preorderItems) {
         List<OrderItems> orderItems = new ArrayList<>();
         for (PreorderItems item : preorderItems) {
-            orderItems.add(new OrderItems(item.preorderId, item.productId));
+            orderItems.add(new OrderItems(item.preorderId, item.getproductEvolutionId()));
         }
         return  orderItems;
     }
@@ -133,10 +139,10 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         List<ProductQuantity> products = new ArrayList<>();
         Map<Long, Integer> productsMap = new HashMap<>();
         for (PreorderItems items : preorderItems) {
-            if (productsMap.containsKey(items.productId)) {
-                productsMap.put(items.productId, productsMap.get(items.productId) + 1);
+            if (productsMap.containsKey(items.getproductEvolutionId())) {
+                productsMap.put(items.getproductEvolutionId(), productsMap.get(items.getproductEvolutionId()) + 1);
             } else {
-                productsMap.put(items.productId, 1);
+                productsMap.put(items.getproductEvolutionId(), 1);
             }
         }
         for (Long key : productsMap.keySet()) {

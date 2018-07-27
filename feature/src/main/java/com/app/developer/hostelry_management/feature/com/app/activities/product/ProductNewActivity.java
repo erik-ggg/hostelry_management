@@ -44,7 +44,7 @@ public class ProductNewActivity extends AppCompatActivity {
                         if (productId > 0) {
                             AppDatabase.getAppDatabase(getApplicationContext()).productEvolutionDao()
                                     .insert(new ProductEvolution(productId, Calendar.getInstance().getTime(),
-                                            ((Supplier)suppliersSpinner.getSelectedItem()).getId()));
+                                            Double.valueOf(productPrice.getText().toString())));
                         }
                         finish();
                     }

@@ -27,6 +27,7 @@ public class PreorderListActivity extends AppCompatActivity {
         int i = item.getItemId();
         if (i == R.id.toolbar_first_option) {
             startActivity(new Intent(PreorderListActivity.this, PreorderNewActivity.class));
+            finish();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -66,9 +67,14 @@ public class PreorderListActivity extends AppCompatActivity {
             public void run() {
                 List<Preorder> preorderList = AppDatabase.getAppDatabase(getApplicationContext()).preorderDao()
                         .getAll();
-                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
+                final ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
                         preorderList);
-                preorderListView.setAdapter(adapter);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        preorderListView.setAdapter(adapter);
+                    }
+                });
             }
         }).start();
     }

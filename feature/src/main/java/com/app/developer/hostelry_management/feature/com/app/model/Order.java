@@ -30,12 +30,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Preorder{" +
-                "supplierId=" + supplierId +
-                ", numberOfItems=" + numberOfItems +
-                ", total=" + total +
-                ", date=" + date +
-                '}';
+        return "Pedido del: " + date + ", nºproductos: " + numberOfItems + ", TOTAL: " + total;
     }
 
     public Long getId() {

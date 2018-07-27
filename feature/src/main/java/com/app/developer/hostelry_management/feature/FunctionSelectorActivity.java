@@ -52,7 +52,7 @@ public class FunctionSelectorActivity extends AppCompatActivity {
         });
 
 //      ***** DEVELOPING ONLY *****
-        loadTestData();
+//        loadTestData();
     }
 
     private void loadTestData() {
@@ -62,13 +62,18 @@ public class FunctionSelectorActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Supplier supplier = new Supplier((long) 1, "Friocarne", 111111111);
-                Product product = new Product((long) 1, "Entrecot", supplier.getId());
-                supplierDao.insert(supplier);
-                productDao.insert(product);
-                productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 5));
-                productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 10));
-                productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 15));
+                AppDatabase.getAppDatabase(getApplicationContext()).runInTransaction(new Runnable() {
+                    @Override
+                    public void run() {
+                        Supplier supplier = new Supplier((long) 1, "Friocarne", 111111111);
+                        Product product = new Product((long) 1, "Entrecot", supplier.getId());
+                        supplierDao.insert(supplier);
+                        productDao.insert(product);
+                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 5));
+                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 10));
+                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 15));
+                    }
+                });
 
             }
         }).start();
