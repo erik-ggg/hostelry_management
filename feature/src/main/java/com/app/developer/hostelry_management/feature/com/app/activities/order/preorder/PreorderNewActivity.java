@@ -1,5 +1,6 @@
 package com.app.developer.hostelry_management.feature.com.app.activities.order.preorder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -106,7 +107,7 @@ public class PreorderNewActivity extends AppCompatActivity {
                                     preorderItems.add(new PreorderItems(preorderId, product.getId()));
                                 }
                                 appDatabase.preorderItemsDao().addAll(preorderItems);
-                                finish();
+                                closeAndRefresh();
                             }
                         });
 
@@ -116,6 +117,17 @@ public class PreorderNewActivity extends AppCompatActivity {
         });
     }
 
+    private void closeAndRefresh() {
+        Intent refresh = new Intent(this, PreorderListActivity.class);
+        startActivity(refresh);
+        finish();
+    }
+
+    /**
+     * Obtains the total value from the preorder products
+     * @param products
+     * @return
+     */
     private double getTotal(List<Product> products) {
         double total = 0;
         final ProductEvolutionDao productEvolutionDaoDao = AppDatabase.getAppDatabase(getApplicationContext()).productEvolutionDao();

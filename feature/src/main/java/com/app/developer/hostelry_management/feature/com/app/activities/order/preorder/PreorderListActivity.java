@@ -23,6 +23,17 @@ import java.util.List;
 public class PreorderListActivity extends AppCompatActivity {
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        if (i == R.id.toolbar_first_option) {
+            startActivity(new Intent(PreorderListActivity.this, PreorderNewActivity.class));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.basic_toolbar, menu);

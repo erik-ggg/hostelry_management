@@ -47,4 +47,8 @@
     <string name="es_action_createPreorder">Crear pre-pedido</string>
     <string name="es_toolbar_firstOption">Primera opción</string>
     <string name="es_toolbar_createPreorder">Hacer pre-pedido</string>
+    <string name="es_suppliersTitle">Proveedores</string>
+    <string name="es_toolbar_createSupplier">Nuevo proveedor</string>
+    <string name="es_toolbar_closePreorder">Hacer pedido</string>
+    <string name="es_toast_database_error">Error al introducir los datos</string>
 </resources>

@@ -3,13 +3,20 @@ package com.app.developer.hostelry_management.feature.com.app.activities.supplie
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.app.developer.hostelry_management.feature.R;
+import com.app.developer.hostelry_management.feature.com.app.activities.order.preorder.PreorderListActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.order.preorder.PreorderNewActivity;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
+import com.app.developer.hostelry_management.feature.com.app.utils.MenuItemsTextUpdater;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -18,9 +25,31 @@ import java.util.concurrent.ExecutionException;
 public class SupplierListActivity extends AppCompatActivity {
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.toolbar_first_option:
+                startActivity(new Intent(SupplierListActivity.this, SupplierNewActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.basic_toolbar, menu);
+        MenuItemsTextUpdater.updateTitle(menu.findItem(R.id.toolbar_first_option), getResources().getString(R.string.es_toolbar_createSupplier));
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_supplier_list);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         List<Supplier> supplierList = null;
         try {

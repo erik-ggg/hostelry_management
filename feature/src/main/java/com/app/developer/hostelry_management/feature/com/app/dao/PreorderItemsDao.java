@@ -1,6 +1,7 @@
 package com.app.developer.hostelry_management.feature.com.app.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -18,4 +19,6 @@ public interface PreorderItemsDao {
     Long addOne(PreorderItems preorderItems);
     @Insert
     Long[] addAll(List<PreorderItems> preorderItems);
+    @Delete
+    void deletePreorderItems(List<PreorderItems> preorderItems);
 }

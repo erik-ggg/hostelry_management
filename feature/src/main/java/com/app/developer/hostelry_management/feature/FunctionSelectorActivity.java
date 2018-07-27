@@ -9,7 +9,7 @@ import android.widget.Button;
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
 import com.app.developer.hostelry_management.feature.com.app.activities.order.OrdersGeneralOptionsActivity;
 import com.app.developer.hostelry_management.feature.com.app.activities.product.ProductOptionsActivity;
-import com.app.developer.hostelry_management.feature.com.app.activities.supplier.SuppliersOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.supplier.SupplierListActivity;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductEvolutionDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.SupplierDao;
@@ -30,7 +30,7 @@ public class FunctionSelectorActivity extends AppCompatActivity {
         supplierButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FunctionSelectorActivity.this, SuppliersOptionsActivity.class);
+                Intent intent = new Intent(FunctionSelectorActivity.this, SupplierListActivity.class);
                 startActivity(intent);
             }
         });

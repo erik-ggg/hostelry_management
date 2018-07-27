@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.app.developer.hostelry_management.feature.R;
-import com.app.developer.hostelry_management.feature.com.app.activities.order.order.OrderOptionsActivity;
-import com.app.developer.hostelry_management.feature.com.app.activities.order.preorder.PreorderOptionsActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.order.order.OrderListActivity;
+import com.app.developer.hostelry_management.feature.com.app.activities.order.preorder.PreorderListActivity;
 
 public class OrdersGeneralOptionsActivity extends AppCompatActivity {
 
@@ -21,14 +21,14 @@ public class OrdersGeneralOptionsActivity extends AppCompatActivity {
         preorders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OrdersGeneralOptionsActivity.this, PreorderOptionsActivity.class));
+                startActivity(new Intent(OrdersGeneralOptionsActivity.this, PreorderListActivity.class));
             }
         });
         Button orders = findViewById(R.id.ordersGeneralOrderButton);
         orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(OrdersGeneralOptionsActivity.this, OrderOptionsActivity.class));
+                startActivity(new Intent(OrdersGeneralOptionsActivity.this, OrderListActivity.class));
             }
         });
     }
