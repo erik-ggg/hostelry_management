@@ -142,7 +142,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                adapter.remove(position);
+                                adapter.remove(adapter.getItem(position));
                                 adapter.notifyDataSetChanged();
                             }
                         });
