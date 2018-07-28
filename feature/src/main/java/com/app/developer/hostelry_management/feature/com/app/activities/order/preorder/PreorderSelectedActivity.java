@@ -7,10 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,20 @@ public class PreorderSelectedActivity extends AppCompatActivity {
     private final static String TOTAL_STRING = "TOTAL: ";
     private Preorder preorder;
     private List<PreorderItems> preorderItems;
+
+    ListView preorderListView;
+    ArrayAdapter adapter;
+
+    TextView numberOfItemsTextView;
+    TextView totalTextView;
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PreorderSelectedActivity.this, PreorderListActivity.class);
+        intent.putExtra("preorder", new Gson().toJson(preorder, Preorder.class));
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,18 +95,76 @@ public class PreorderSelectedActivity extends AppCompatActivity {
 
         preorder = new Gson().fromJson(getIntent().getStringExtra("preorder"), Preorder.class);
 
-        final ListView preorderListView = findViewById(R.id.preorderSelectedListView);
+        preorderListView = findViewById(R.id.preorderSelectedListView);
+        preorderListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                PopupMenu popupMenu = new PopupMenu(PreorderSelectedActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.basic_popup, popupMenu.getMenu());
+                MenuItem menuItem = popupMenu.getMenu().findItem(R.id.popup_firstOption);
+                menuItem.setTitle(getResources().getString(R.string.es_deletePreorderItem));
+                final int position = i;
+                final ProductQuantity product = (ProductQuantity) adapterView.getItemAtPosition(i);
 
-        final TextView numberOfItemsTextView = findViewById(R.id.preorderSelectedNumberOfItemsTextView);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.popup_firstOption) {
+                            deleteSelectedProduct(product, position);
+                        }
+                        return true;
+                    }
+                });
 
-        final TextView totalTextView = findViewById(R.id.preorderSelectedTotalTextView);
+                popupMenu.show();
+                return true;
+            }
+        });
 
+        numberOfItemsTextView = findViewById(R.id.preorderSelectedNumberOfItemsTextView);
+
+        totalTextView = findViewById(R.id.preorderSelectedTotalTextView);
+
+        setUpViewItems(preorderListView, numberOfItemsTextView, totalTextView);
+    }
+
+    private void deleteSelectedProduct(final ProductQuantity product, final int position) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final AppDatabase database = AppDatabase.getAppDatabase(getApplicationContext());
+                database.runInTransaction(new Runnable() {
+                    @Override
+                    public void run() {
+                        database.preorderItemsDao().deleteItemById(product.getProduct().getId());
+                        // TODO: update preorder
+                        updatePreorder(database, product);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void updatePreorder(AppDatabase database, ProductQuantity product) {
+        preorder.setNumberOfItems(preorder.getNumberOfItems() - product.getQuantity());
+        preorder.setTotal(preorder.getTotal() - product.getTotal());
+        database.preorderDao().updatePreorder(preorder);
+    }
+
+    private void setUpViewItems(final ListView preorderListView, final TextView numberOfItemsTextView, final TextView totalTextView) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 AppDatabase database = AppDatabase.getAppDatabase(getApplicationContext());
                 preorderItems = database.preorderItemsDao().getByPreorderId(preorder.getId());
-                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
+                adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
                         getProductsQuantity(preorderItems, database));
                 preorderListView.setAdapter(adapter);
                 numberOfItemsTextView.setText(ITEMS_STRING + preorder.getNumberOfItems());
@@ -151,6 +226,12 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         return  orderItems;
     }
 
+    /**
+     * Obtains, converts and returns the information of the preorder items into a more suitable data structure
+     * @param preorderItems
+     * @param database
+     * @return
+     */
     private List<ProductQuantity> getProductsQuantity(List<PreorderItems> preorderItems, AppDatabase database) {
         List<ProductQuantity> products = new ArrayList<>();
         Map<Long, Integer> productsMap = new HashMap<>();
@@ -162,7 +243,9 @@ public class PreorderSelectedActivity extends AppCompatActivity {
             }
         }
         for (Long key : productsMap.keySet()) {
-            products.add(new ProductQuantity(database.productDao().getProductById(key), productsMap.get(key)));
+            int quantity = productsMap.get(key);
+            double total = database.productEvolutionDao().getById(key).getPrice() * quantity;
+            products.add(new ProductQuantity(database.productDao().getProductById(key), quantity, total));
         }
         return products;
     }

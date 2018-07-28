@@ -6,15 +6,25 @@ public class ProductQuantity {
 
     private Product product;
     private int quantity;
+    private double total;
 
-    public ProductQuantity(Product product, int quantity) {
+    public ProductQuantity(Product product, int quantity, double total) {
         this.product = product;
         this.quantity = quantity;
+        this.total = total;
     }
 
     @Override
     public String toString() {
-        return "Producto: " + product.toString() + ", cantidad: " + quantity;
+        return "Producto: " + product.toString() + ", cantidad: " + quantity + ", total: " + total;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public Product getProduct() {

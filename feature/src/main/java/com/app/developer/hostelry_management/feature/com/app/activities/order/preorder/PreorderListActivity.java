@@ -59,6 +59,7 @@ public class PreorderListActivity extends AppCompatActivity {
                 Intent intent = new Intent(PreorderListActivity.this, PreorderSelectedActivity.class);
                 intent.putExtra("preorder", new Gson().toJson(adapterView.getItemAtPosition(i)));
                 startActivity(intent);
+                finish();
             }
         });
 
