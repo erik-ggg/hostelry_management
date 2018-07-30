@@ -26,6 +26,7 @@ import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems
 import com.app.developer.hostelry_management.feature.com.app.model.Product;
 import com.app.developer.hostelry_management.feature.com.app.utils.MenuItemsTextUpdater;
 import com.app.developer.hostelry_management.feature.com.app.utils.ProductQuantity;
+import com.app.developer.hostelry_management.feature.com.app.utils.Utils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -164,8 +165,10 @@ public class PreorderSelectedActivity extends AppCompatActivity {
             public void run() {
                 AppDatabase database = AppDatabase.getAppDatabase(getApplicationContext());
                 preorderItems = database.preorderItemsDao().getByPreorderId(preorder.getId());
+                List<ProductQuantity> preorderProducts = getProductsQuantity(preorderItems, database);
+                Utils.orderAlphabeticallyProductQuantity(preorderProducts);
                 adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
-                        getProductsQuantity(preorderItems, database));
+                        preorderProducts);
                 preorderListView.setAdapter(adapter);
                 numberOfItemsTextView.setText(ITEMS_STRING + preorder.getNumberOfItems());
                 totalTextView.setText(TOTAL_STRING + preorder.getTotal());

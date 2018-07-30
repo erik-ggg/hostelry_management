@@ -52,7 +52,7 @@ public class FunctionSelectorActivity extends AppCompatActivity {
         });
 
 //      ***** DEVELOPING ONLY *****
-        loadTestData();
+//        loadTestData();
     }
 
     private void loadTestData() {

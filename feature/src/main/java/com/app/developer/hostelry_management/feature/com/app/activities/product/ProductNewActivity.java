@@ -38,7 +38,7 @@ public class ProductNewActivity extends AppCompatActivity {
                         // TODO: if insertion correct do the next if not rollback
                         Long productId = AppDatabase.getAppDatabase(getApplicationContext()).productDao()
                                 .insert(new Product(
-                                    productName.getText().toString(),
+                                    productName.getText().toString().trim(),
                                     ((Supplier)suppliersSpinner.getSelectedItem()).getId()
                                 ));
                         if (productId > 0) {

@@ -1,5 +1,6 @@
 package com.app.developer.hostelry_management.feature.com.app.activities.supplier;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,12 +28,20 @@ public class SupplierNewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         AppDatabase.getAppDatabase(getApplicationContext()).supplierDao()
-                                .insert(new Supplier(supplierName.getText().toString(),
+                                .insert(new Supplier(supplierName.getText().toString().trim(),
                                         Integer.valueOf(supplierPhonenumber.getText().toString())));
-                        finish();
+                        finishAndRefresh();
                     }
                 }).start();
             }
         });
+    }
+
+    /**
+     * Finish the activity and refresh the supplier list
+     */
+    private void finishAndRefresh() {
+        startActivity(new Intent(SupplierNewActivity.this, SupplierListActivity.class));
+        finish();
     }
 }

@@ -17,6 +17,6 @@ public interface ProductEvolutionDao {
     List<ProductEvolution> getAllByProduct(Long productId);
     @Query("SELECT * FROM productevolution WHERE productId = :id")
     ProductEvolution getLastModification(Long id);
-    @Query("SELECT * FROM productevolution WHERE id = :id")
+    @Query("SELECT * FROM productevolution WHERE id = :id order by date desc LIMIT 1")
     ProductEvolution getById(Long id);
 }

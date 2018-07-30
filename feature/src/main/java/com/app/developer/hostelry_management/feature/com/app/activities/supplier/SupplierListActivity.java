@@ -17,6 +17,7 @@ import com.app.developer.hostelry_management.feature.com.app.activities.order.pr
 import com.app.developer.hostelry_management.feature.com.app.activities.order.preorder.PreorderNewActivity;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
 import com.app.developer.hostelry_management.feature.com.app.utils.MenuItemsTextUpdater;
+import com.app.developer.hostelry_management.feature.com.app.utils.Utils;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class SupplierListActivity extends AppCompatActivity {
         List<Supplier> supplierList = null;
         try {
             supplierList = new SupplierAsyncTask(this).execute().get();
+            Utils.orderAlphabeticallySupplier(supplierList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -73,6 +75,7 @@ public class SupplierListActivity extends AppCompatActivity {
                         SupplierOptionsActivity.class);
                 intent.putExtra("supplier", new Gson().toJson(supplier));
                 startActivity(intent);
+                finish();
             }
         });
     }

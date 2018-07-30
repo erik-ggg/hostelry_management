@@ -13,6 +13,7 @@ import com.app.developer.hostelry_management.feature.R;
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
 import com.app.developer.hostelry_management.feature.com.app.model.Product;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
+import com.app.developer.hostelry_management.feature.com.app.utils.Utils;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class SupplierProductsActivity extends AppCompatActivity {
                 List<Product> products = AppDatabase.getAppDatabase(
                         getApplicationContext())
                         .productDao().getProductsBySupplier(supplier.getId());
+                Utils.orderAlphabeticallyProduct(products);
 
                 ArrayAdapter adapter = new ArrayAdapter(
                         context, android.R.layout.simple_list_item_1, products);

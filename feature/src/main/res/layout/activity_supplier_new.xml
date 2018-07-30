@@ -20,7 +20,7 @@
         <EditText
             android:id="@+id/supplierNewNameEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="text"/>
     </LinearLayout>
 
@@ -37,7 +37,7 @@
         <EditText
             android:id="@+id/supplierNewPhonenumberEditText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="phone"/>
     </LinearLayout>
 
