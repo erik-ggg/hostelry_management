@@ -100,24 +100,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         preorderListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                PopupMenu popupMenu = new PopupMenu(PreorderSelectedActivity.this, view);
-                popupMenu.getMenuInflater().inflate(R.menu.basic_popup, popupMenu.getMenu());
-                MenuItem menuItem = popupMenu.getMenu().findItem(R.id.popup_firstOption);
-                menuItem.setTitle(getResources().getString(R.string.es_deletePreorderItem));
-                final int position = i;
-                final ProductQuantity product = (ProductQuantity) adapterView.getItemAtPosition(i);
-
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getItemId() == R.id.popup_firstOption) {
-                            deleteSelectedProduct(product, position);
-                        }
-                        return true;
-                    }
-                });
-
-                popupMenu.show();
+                setUpPopupMenu(adapterView, view, i);
                 return true;
             }
         });
@@ -127,6 +110,27 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         totalTextView = findViewById(R.id.preorderSelectedTotalTextView);
 
         setUpViewItems(preorderListView, numberOfItemsTextView, totalTextView);
+    }
+
+    private void setUpPopupMenu(AdapterView<?> adapterView, View view, int i) {
+        PopupMenu popupMenu = new PopupMenu(PreorderSelectedActivity.this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.basic_popup, popupMenu.getMenu());
+        MenuItem menuItem = popupMenu.getMenu().findItem(R.id.popup_firstOption);
+        menuItem.setTitle(getResources().getString(R.string.es_deletePreorderItem));
+        final int position = i;
+        final ProductQuantity product = (ProductQuantity) adapterView.getItemAtPosition(i);
+
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.popup_firstOption) {
+                    deleteSelectedProduct(product, position);
+                }
+                return true;
+            }
+        });
+
+        popupMenu.show();
     }
 
     private void deleteSelectedProduct(final ProductQuantity product, final int position) {

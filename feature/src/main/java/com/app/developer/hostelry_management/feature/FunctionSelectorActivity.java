@@ -52,7 +52,7 @@ public class FunctionSelectorActivity extends AppCompatActivity {
         });
 
 //      ***** DEVELOPING ONLY *****
-//        loadTestData();
+        loadTestData();
     }
 
     private void loadTestData() {
@@ -67,11 +67,20 @@ public class FunctionSelectorActivity extends AppCompatActivity {
                     public void run() {
                         Supplier supplier = new Supplier((long) 1, "Friocarne", 111111111);
                         Product product = new Product((long) 1, "Entrecot", supplier.getId());
+                        ProductEvolution p1 = new ProductEvolution(product.getId(), new Date(), 5);
+                        ProductEvolution p2 = new ProductEvolution(product.getId(), new Date(), 10);
+                        ProductEvolution p3 = new ProductEvolution(product.getId(), new Date(), 15);
                         supplierDao.insert(supplier);
                         productDao.insert(product);
-                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 5));
-                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 10));
-                        productEvolutionDao.insert(new ProductEvolution(product.getId(), new Date(), 15));
+                        productEvolutionDao.insert(p1);
+
+//                        productEvolutionDao.delete(p3);
+//                        productEvolutionDao.delete(p2);
+//                        productEvolutionDao.delete(p1);
+//
+//                        productDao.delete(product);
+//                        supplierDao.delete(supplier);
+
                     }
                 });
 

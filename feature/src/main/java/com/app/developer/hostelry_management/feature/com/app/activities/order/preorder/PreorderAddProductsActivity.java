@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.app.developer.hostelry_management.feature.R;
@@ -21,12 +22,15 @@ import java.util.List;
 
 public class PreorderAddProductsActivity extends AppCompatActivity {
 
-    private List<PreorderItems> preorderItemsList = new ArrayList<>();
     private Button confirmButton;
     private Button addProductButton;
+    private EditText productQuantityEditText;
+    private Spinner productsSpinner;
+
+    private List<PreorderItems> preorderItemsList = new ArrayList<>();
     private Preorder preorder;
     private double total = 0;
-    private Spinner productsSpinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
 
         preorder = new Gson().fromJson(getIntent().getStringExtra("preorder"), Preorder.class);
         total = preorder.getTotal();
+
+        productQuantityEditText = findViewById(R.id.preorderNewQuantityEditText);
 
         confirmButton = findViewById(R.id.preorderNewAddButton);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +64,26 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                double quantity = Double.valueOf(productQuantityEditText.getText().toString());
                 Long productId = ((Product)productsSpinner.getSelectedItem()).getId();
                 ProductEvolution productEvolution = AppDatabase.getAppDatabase(getApplicationContext()).productEvolutionDao()
                         .getLastModification(productId);
+                quantity = checkAndAddDecimalProduct(quantity, productEvolution);
                 // increment total value;
                 total += productEvolution.getPrice();
                 preorderItemsList.add(new PreorderItems(preorder.getId(), productEvolution.getId()));
             }
         }).start();
+    }
+
+    private double checkAndAddDecimalProduct(double quantity, ProductEvolution productEvolution) {
+        if (quantity % 1 != 0) {
+            double decimalProductValue = (quantity % 1) * productEvolution.getPrice();
+            total += decimalProductValue;
+            return quantity - 1;
+        } else {
+            return quantity;
+        }
     }
 
     private void confirmAndFinish() {
@@ -82,7 +100,7 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
                         database.preorderDao().updatePreorder(preorder);
                         // TODO: solo si funciona
                         Intent refresh = new Intent(PreorderAddProductsActivity.this, PreorderSelectedActivity.class);
-                        refresh.putExtra("preorder", getIntent().getStringExtra("preorder"));
+                        refresh.putExtra("preorder", new Gson().toJson(preorder, Preorder.class));
                         startActivity(refresh);
                         finish();
                     }

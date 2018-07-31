@@ -55,4 +55,5 @@
     <string name="es_toolbar_preorder_addProducts">Añadir productos</string>
     <string name="es_confirmButton">Confirmar</string>
     <string name="es_deletePreorderItem">Eliminar producto</string>
+    <string name="es_orderListTotalText">Total:</string>
 </resources>

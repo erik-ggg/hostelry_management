@@ -26,9 +26,11 @@ import java.util.List;
 public class PreorderNewActivity extends AppCompatActivity {
 
     private List<Product> productList;
+    private double numberOfItems = 0;
     private double total = 0;
 
     private Button addProduct;
+    private Button finishOrder;
     private EditText productQuantityEditText;
     private Spinner productSpinner;
     private Spinner supplierSpinner;
@@ -83,7 +85,7 @@ public class PreorderNewActivity extends AppCompatActivity {
 
         fillSuppliersSpinner(suppliers, supplierSpinner);
 
-        final Button finishOrder = findViewById(R.id.preorderNewAddButton);
+        finishOrder = findViewById(R.id.preorderNewAddButton);
         finishOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +108,7 @@ public class PreorderNewActivity extends AppCompatActivity {
     }
 
     private void addProductToList(List<Product> productList, Spinner productSpinner) {
+        // TODO: update code to preorderAddProductsActivityMethod
         double quantity = Double.valueOf(productQuantityEditText.getText().toString());
         Product selectedProduct = (Product) productSpinner.getSelectedItem();
         quantity = checkAndAddDecimalProduct(quantity, selectedProduct);
@@ -122,6 +125,7 @@ public class PreorderNewActivity extends AppCompatActivity {
                     double decimalProductValue = (quantity % 1) * AppDatabase.getAppDatabase(getApplicationContext())
                             .productEvolutionDao().getLastModification(selectedProduct.getId()).getPrice();
                     total += decimalProductValue;
+                    numberOfItems += quantity % 1;
                 }
             }).start();
             return quantity - 1;
@@ -143,7 +147,7 @@ public class PreorderNewActivity extends AppCompatActivity {
         // insertar el preorder
         Long preorderId = appDatabase.preorderDao().addPreorder(new Preorder(
                 ((Supplier)supplierSpinner.getSelectedItem()).getId(),
-                productList.size(),
+                numberOfItems + productList.size(),
                 total,
                 Calendar.getInstance().getTime()
         ));
