@@ -7,6 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 
 import com.app.developer.hostelry_management.feature.com.app.utils.Converters;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,7 +33,8 @@ public class Preorder {
     @Override
     public String toString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy");
-        return "Pre-pedido del: " + simpleDateFormat.format(date) + ", nºproductos: " + numberOfItems + ", TOTAL: " + total;
+        return "Pre-pedido del: " + simpleDateFormat.format(date) + ", nºproductos: " + numberOfItems
+                + ", TOTAL: " + new DecimalFormat("#.##").format(total);
     }
 
     public Long getId() {

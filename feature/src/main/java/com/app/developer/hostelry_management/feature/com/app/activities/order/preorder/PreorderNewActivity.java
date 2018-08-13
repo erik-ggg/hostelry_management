@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.app.developer.hostelry_management.feature.R;
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
@@ -115,6 +116,8 @@ public class PreorderNewActivity extends AppCompatActivity {
         for (int i = 0; i < quantity; i++) {
             productList.add(selectedProduct);
         }
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.es_productAdded), Toast.LENGTH_SHORT).show();
+        productQuantityEditText.setText("1");
     }
 
     private double checkAndAddDecimalProduct(final double quantity, final Product selectedProduct) {

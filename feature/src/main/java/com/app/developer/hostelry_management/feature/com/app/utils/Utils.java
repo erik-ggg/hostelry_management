@@ -1,10 +1,10 @@
 package com.app.developer.hostelry_management.feature.com.app.utils;
 
-import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems;
 import com.app.developer.hostelry_management.feature.com.app.model.Product;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
+import com.app.developer.hostelry_management.feature.com.app.utils.DataClasses.PreorderData;
+import com.app.developer.hostelry_management.feature.com.app.utils.DataClasses.ProductQuantity;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -42,5 +42,16 @@ public class Utils {
             }
         });
     }
+
+    public static void orderPreorderbyDate(List<PreorderData> list) {
+        Collections.sort(list, new Comparator<PreorderData>()
+        {
+            @Override
+            public int compare(PreorderData preorderData1, PreorderData preorderData2) {
+                return preorderData1.getPreorder().getDate().compareTo(preorderData2.getPreorder().getDate());
+            }
+        });
+    }
+
 
 }

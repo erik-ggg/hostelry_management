@@ -22,4 +22,6 @@ public interface PreorderDao {
     void deletePreorder(Preorder preorder);
     @Update
     void updatePreorder(Preorder preorder);
+    @Query("DELETE FROM preorder WHERE id = :id")
+    void deletePreorderById(Long id);
 }

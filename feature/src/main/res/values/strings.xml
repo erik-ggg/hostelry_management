@@ -56,4 +56,6 @@
     <string name="es_confirmButton">Confirmar</string>
     <string name="es_deletePreorderItem">Eliminar producto</string>
     <string name="es_orderListTotalText">Total:</string>
+    <string name="es_delete">Eliminar</string>
+    <string name="es_productAdded">Producto añadido</string>
 </resources>

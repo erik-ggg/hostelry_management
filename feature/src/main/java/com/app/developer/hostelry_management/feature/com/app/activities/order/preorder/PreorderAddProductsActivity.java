@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.app.developer.hostelry_management.feature.R;
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
@@ -30,6 +31,7 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
     private List<PreorderItems> preorderItemsList = new ArrayList<>();
     private Preorder preorder;
     private double total = 0;
+    private double numberOfOItems = 0;
 
 
     @Override
@@ -38,7 +40,6 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preorder_add_products);
 
         preorder = new Gson().fromJson(getIntent().getStringExtra("preorder"), Preorder.class);
-        total = preorder.getTotal();
 
         productQuantityEditText = findViewById(R.id.preorderNewQuantityEditText);
 
@@ -65,13 +66,23 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 double quantity = Double.valueOf(productQuantityEditText.getText().toString());
+                numberOfOItems += Double.valueOf(productQuantityEditText.getText().toString());
                 Long productId = ((Product)productsSpinner.getSelectedItem()).getId();
                 ProductEvolution productEvolution = AppDatabase.getAppDatabase(getApplicationContext()).productEvolutionDao()
                         .getLastModification(productId);
                 quantity = checkAndAddDecimalProduct(quantity, productEvolution);
                 // increment total value;
                 total += productEvolution.getPrice();
-                preorderItemsList.add(new PreorderItems(preorder.getId(), productEvolution.getId()));
+                for (int i = 0; i < quantity; i++) {
+                    preorderItemsList.add(new PreorderItems(preorder.getId(), productEvolution.getId()));
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.es_productAdded), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                productQuantityEditText.setText("1");
             }
         }).start();
     }
@@ -95,8 +106,8 @@ public class PreorderAddProductsActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         database.preorderItemsDao().addAll(preorderItemsList);
-                        preorder.setTotal(total);
-                        preorder.setNumberOfItems(preorder.getNumberOfItems() + preorderItemsList.size());
+                        preorder.setTotal(preorder.getTotal() + total);
+                        preorder.setNumberOfItems(preorder.getNumberOfItems() + numberOfOItems);
                         database.preorderDao().updatePreorder(preorder);
                         // TODO: solo si funciona
                         Intent refresh = new Intent(PreorderAddProductsActivity.this, PreorderSelectedActivity.class);

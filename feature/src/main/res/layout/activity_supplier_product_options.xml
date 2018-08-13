@@ -7,6 +7,12 @@
     tools:context=".com.app.activities.supplier.com.app.supplier.product.SupplierProductOptionsActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/supplierProductOptionsTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
     <Button
         android:id="@+id/supplierProductOptionsUpdate"
         android:text="@string/es_supplierProductOptionsUpdate"

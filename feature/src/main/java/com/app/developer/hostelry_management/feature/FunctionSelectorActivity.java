@@ -13,6 +13,7 @@ import com.app.developer.hostelry_management.feature.com.app.activities.supplier
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.ProductEvolutionDao;
 import com.app.developer.hostelry_management.feature.com.app.dao.SupplierDao;
+import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems;
 import com.app.developer.hostelry_management.feature.com.app.model.Product;
 import com.app.developer.hostelry_management.feature.com.app.model.ProductEvolution;
 import com.app.developer.hostelry_management.feature.com.app.model.Supplier;
@@ -67,12 +68,20 @@ public class FunctionSelectorActivity extends AppCompatActivity {
                     public void run() {
                         Supplier supplier = new Supplier((long) 1, "Friocarne", 111111111);
                         Product product = new Product((long) 1, "Entrecot", supplier.getId());
+                        Product product2 = new Product((long) 2, "Filete de pollo", supplier.getId());
+                        ProductEvolution p4 = new ProductEvolution(product2.getId(), new Date(), 5);
                         ProductEvolution p1 = new ProductEvolution(product.getId(), new Date(), 5);
                         ProductEvolution p2 = new ProductEvolution(product.getId(), new Date(), 10);
                         ProductEvolution p3 = new ProductEvolution(product.getId(), new Date(), 15);
+
                         supplierDao.insert(supplier);
                         productDao.insert(product);
+                        productDao.insert(product2);
                         productEvolutionDao.insert(p1);
+                        productEvolutionDao.insert(p4);
+
+
+
 
 //                        productEvolutionDao.delete(p3);
 //                        productEvolutionDao.delete(p2);

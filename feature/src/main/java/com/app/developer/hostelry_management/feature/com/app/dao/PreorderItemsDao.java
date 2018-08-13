@@ -21,6 +21,10 @@ public interface PreorderItemsDao {
     Long[] addAll(List<PreorderItems> preorderItems);
     @Delete
     void deletePreorderItems(List<PreorderItems> preorderItems);
-    @Query("DELETE FROM preorderitems WHERE productEvolutionId = :id")
+    @Delete
+    void deletePreorderItem(PreorderItems preorderItems);
+    @Query("DELETE FROM preorderitems WHERE id = :id")
     void deleteItemById(Long id);
+    @Query("DELETE FROM preorderitems WHERE preorderId = :preorderId AND productEvolutionId = :productEvolutionId")
+    void deleteItemByPreorderIdAndProductEvolutionId(Long preorderId, Long productEvolutionId);
 }

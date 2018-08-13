@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.developer.hostelry_management.feature.R;
 import com.app.developer.hostelry_management.feature.com.app.AppDatabase;
@@ -23,18 +21,16 @@ import com.app.developer.hostelry_management.feature.com.app.model.Order;
 import com.app.developer.hostelry_management.feature.com.app.model.OrderItems;
 import com.app.developer.hostelry_management.feature.com.app.model.Preorder;
 import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems;
-import com.app.developer.hostelry_management.feature.com.app.model.Product;
 import com.app.developer.hostelry_management.feature.com.app.utils.MenuItemsTextUpdater;
-import com.app.developer.hostelry_management.feature.com.app.utils.ProductQuantity;
+import com.app.developer.hostelry_management.feature.com.app.utils.DataClasses.ProductQuantity;
 import com.app.developer.hostelry_management.feature.com.app.utils.Utils;
 import com.google.gson.Gson;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class PreorderSelectedActivity extends AppCompatActivity {
 
@@ -141,8 +137,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                 database.runInTransaction(new Runnable() {
                     @Override
                     public void run() {
-                        database.preorderItemsDao().deleteItemById(product.getProduct().getId());
-                        // TODO: update preorder
+                        database.preorderItemsDao().deleteItemByPreorderIdAndProductEvolutionId(preorder.getId(), product.getProductEvolutionId());
                         updatePreorder(database, product);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -175,7 +170,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                         preorderProducts);
                 preorderListView.setAdapter(adapter);
                 numberOfItemsTextView.setText(ITEMS_STRING + preorder.getNumberOfItems());
-                totalTextView.setText(TOTAL_STRING + preorder.getTotal());
+                totalTextView.setText(TOTAL_STRING + new DecimalFormat("#.##").format(preorder.getTotal()));
             }
         }).start();
     }
@@ -196,10 +191,10 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             // crear order
-                            database.orderDao().addOrder(new Order(preorder.getSupplierId(),
+                            Long orderId = database.orderDao().addOrder(new Order(preorder.getSupplierId(),
                                     preorder.getNumberOfItems(), preorder.getTotal(), preorder.getDate()));
                             // crear productos de dicha order
-                            database.orderItemsDao().addAll(getOrderItems(preorderItems));
+                            database.orderItemsDao().addAll(getOrderItems(orderId, preorderItems));
                             // borrar productos preorder
                             database.preorderItemsDao().deletePreorderItems(preorderItems);
                             // borrar preorder
@@ -208,6 +203,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e) {
+                    Log.d("DB", e.getMessage());
 //                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.es_toast_database_error), Toast.LENGTH_LONG).show();
                 }
             }
@@ -222,13 +218,15 @@ public class PreorderSelectedActivity extends AppCompatActivity {
 
     /**
      * Converts the preorder items into order items
+     *
+     * @param orderId
      * @param preorderItems
      * @return the order items
      */
-    private List<OrderItems> getOrderItems(List<PreorderItems> preorderItems) {
+    private List<OrderItems> getOrderItems(Long orderId, List<PreorderItems> preorderItems) {
         List<OrderItems> orderItems = new ArrayList<>();
         for (PreorderItems item : preorderItems) {
-            orderItems.add(new OrderItems(item.preorderId, item.getproductEvolutionId()));
+            orderItems.add(new OrderItems(orderId, item.getProductEvolutionId()));
         }
         return  orderItems;
     }
@@ -243,16 +241,16 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         List<ProductQuantity> products = new ArrayList<>();
         Map<Long, Integer> productsMap = new HashMap<>();
         for (PreorderItems items : preorderItems) {
-            if (productsMap.containsKey(items.getproductEvolutionId())) {
-                productsMap.put(items.getproductEvolutionId(), productsMap.get(items.getproductEvolutionId()) + 1);
+            if (productsMap.containsKey(items.getProductEvolutionId())) {
+                productsMap.put(items.getProductEvolutionId(), productsMap.get(items.getProductEvolutionId()) + 1);
             } else {
-                productsMap.put(items.getproductEvolutionId(), 1);
+                productsMap.put(items.getProductEvolutionId(), 1);
             }
         }
         for (Long key : productsMap.keySet()) {
             int quantity = productsMap.get(key);
             double total = database.productEvolutionDao().getById(key).getPrice() * quantity;
-            products.add(new ProductQuantity(database.productDao().getProductById(key), quantity, total));
+            products.add(new ProductQuantity(database.productDao().getProductById(key), key, quantity, total));
         }
         return products;
     }

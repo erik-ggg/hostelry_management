@@ -17,4 +17,6 @@ public interface SupplierDao {
     void insert(Supplier supplier);
     @Delete
     void delete(Supplier supplier);
+    @Query("SELECT * FROM Supplier WHERE id = :id ")
+    Supplier getById(Long id);
 }

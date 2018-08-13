@@ -43,7 +43,7 @@ public class PreorderItems {
         this.preorderId = preorderId;
     }
 
-    public Long getproductEvolutionId() {
+    public Long getProductEvolutionId() {
         return productEvolutionId;
     }
 
