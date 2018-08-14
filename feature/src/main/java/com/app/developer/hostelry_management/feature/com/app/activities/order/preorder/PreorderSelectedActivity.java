@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Printer;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,10 +24,12 @@ import com.app.developer.hostelry_management.feature.com.app.model.Preorder;
 import com.app.developer.hostelry_management.feature.com.app.model.PreorderItems;
 import com.app.developer.hostelry_management.feature.com.app.utils.MenuItemsTextUpdater;
 import com.app.developer.hostelry_management.feature.com.app.utils.DataClasses.ProductQuantity;
+import com.app.developer.hostelry_management.feature.com.app.utils.Printer.MailPrinter;
 import com.app.developer.hostelry_management.feature.com.app.utils.Utils;
 import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -164,7 +167,7 @@ public class PreorderSelectedActivity extends AppCompatActivity {
             public void run() {
                 AppDatabase database = AppDatabase.getAppDatabase(getApplicationContext());
                 preorderItems = database.preorderItemsDao().getByPreorderId(preorder.getId());
-                List<ProductQuantity> preorderProducts = getProductsQuantity(preorderItems, database);
+                List<ProductQuantity> preorderProducts = Utils.getProductsQuantityByPreorder(preorderItems, database);
                 Utils.orderAlphabeticallyProductQuantity(preorderProducts);
                 adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,
                         preorderProducts);
@@ -231,27 +234,5 @@ public class PreorderSelectedActivity extends AppCompatActivity {
         return  orderItems;
     }
 
-    /**
-     * Obtains, converts and returns the information of the preorder items into a more suitable data structure
-     * @param preorderItems
-     * @param database
-     * @return
-     */
-    private List<ProductQuantity> getProductsQuantity(List<PreorderItems> preorderItems, AppDatabase database) {
-        List<ProductQuantity> products = new ArrayList<>();
-        Map<Long, Integer> productsMap = new HashMap<>();
-        for (PreorderItems items : preorderItems) {
-            if (productsMap.containsKey(items.getProductEvolutionId())) {
-                productsMap.put(items.getProductEvolutionId(), productsMap.get(items.getProductEvolutionId()) + 1);
-            } else {
-                productsMap.put(items.getProductEvolutionId(), 1);
-            }
-        }
-        for (Long key : productsMap.keySet()) {
-            int quantity = productsMap.get(key);
-            double total = database.productEvolutionDao().getById(key).getPrice() * quantity;
-            products.add(new ProductQuantity(database.productDao().getProductById(key), key, quantity, total));
-        }
-        return products;
-    }
+
 }

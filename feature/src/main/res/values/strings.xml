@@ -58,4 +58,7 @@
     <string name="es_orderListTotalText">Total:</string>
     <string name="es_delete">Eliminar</string>
     <string name="es_productAdded">Producto añadido</string>
+    <string name="es_sendMail">Enviar pedido</string>
+    <string name="es_email">Correo electrónico:</string>
+    <string name="es_update">Actualizar</string>
 </resources>

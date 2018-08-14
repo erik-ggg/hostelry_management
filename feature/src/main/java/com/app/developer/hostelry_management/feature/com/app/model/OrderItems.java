@@ -5,25 +5,26 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Order.class, parentColumns = "id", childColumns = "orderId"),
-        @ForeignKey(entity = Product.class, parentColumns = "id", childColumns = "productId")})
+        @ForeignKey(entity = ProductEvolution.class, parentColumns = "id", childColumns = "productEvolutionId")})
 public class OrderItems {
     @PrimaryKey(autoGenerate = true)
     public Long id;
     public Long orderId;
-    public Long productId;
+    public Long productEvolutionId;
+
 
     public OrderItems(){}
 
-    public OrderItems(Long orderId, Long productId) {
+    public OrderItems(Long orderId, Long productEvolutionId) {
         this.orderId = orderId;
-        this.productId = productId;
+        this.productEvolutionId = productEvolutionId;
     }
 
     @Override
     public String toString() {
         return "PreorderItems{" +
                 "preorderId=" + orderId +
-                ", productId=" + productId +
+                ", productId=" + productEvolutionId +
                 '}';
     }
 
@@ -43,11 +44,11 @@ public class OrderItems {
         this.orderId = preorderId;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getProductEvolutionId() {
+        return productEvolutionId;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductEvolutionId(Long productEvolutionId) {
+        this.productEvolutionId = productEvolutionId;
     }
 }

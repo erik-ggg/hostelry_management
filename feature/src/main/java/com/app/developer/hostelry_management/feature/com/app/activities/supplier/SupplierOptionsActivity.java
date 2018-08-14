@@ -33,7 +33,7 @@ public class SupplierOptionsActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SupplierOptionsActivity.this, SupplierProductsActivity.class);
+                Intent intent = new Intent(SupplierOptionsActivity.this, SupplierNewActivity.class);
                 intent.putExtra("supplier", stringSupplier);
                 startActivity(intent);
             }

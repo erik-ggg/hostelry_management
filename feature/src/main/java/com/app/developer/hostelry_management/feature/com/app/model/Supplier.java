@@ -12,6 +12,7 @@ public class Supplier {
     private String name;
     @ColumnInfo(name = "phonenumber")
     private int phonenumber;
+    private String email;
 
     public Supplier(){}
 
@@ -24,6 +25,13 @@ public class Supplier {
         this.name = name;
         this.phonenumber = phonenumber;
         this.id = id;
+    }
+
+    public Supplier(Long id, String name, int phonenumber, String email) {
+        this.name = name;
+        this.phonenumber = phonenumber;
+        this.id = id;
+        this.email = email;
     }
 
     public Long getId() {
@@ -48,6 +56,14 @@ public class Supplier {
 
     public void setPhonenumber(int phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
